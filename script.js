@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const registroForm = document.getElementById("registroForm"); 
   if (registroForm) {
     registroForm.addEventListener("submit", async (e) => {
-      e.preventDefault(); // Detiene la recarga automatica de la pagina 
+      e.preventDefault(); // Detiene la recarga automática de la página 
       // INPUT DE ARCHIVO REGISTROS 
       const nombre = document.getElementById("nombre").value.trim(); //value extrae la ifno de la casilla .trim() Omite los espacios si el usuaro lo presiona por error
       const correo = document.getElementById("correo").value.trim();
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await respuesta.json();
         if (respuesta.ok) {
           if (data.token) {
-            localStorage.setItem("authToken", data.token); // Da autorizacion para dar alta al instructor
+            localStorage.setItem("authToken", data.token);
           }
           // AQIUI SE PONE LA REDIRECCION A LA PAGINA PRINCIPAL
           window.location.href = "pantallaPrincipal.html";
@@ -165,40 +165,162 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // CAPTURAMOS EL FORMULARIO 
+  // CAPTURAMOS EL FORMULARIO (crearCurso.html)
   const crearCursoForm = document.getElementById('crearCursoForm');
+  const btnAgregarModulo = document.getElementById('btnAgregarModulo');
+  const contenedorModulos = document.getElementById('contenedor-modulos');
+  let contadorModulo = 0;
+  //  auxiliar para agregar un bloque de modulo al DOM
+  function agregarBloqueModulo(titulo = '', tipo = 'text', tituloContenido = '', detalleContenido = '') {
+    contadorModulo++;
 
+    const divModulo = document.createElement('div');
+    divModulo.className = 'bloque-modulo';
+    divModulo.style.border = '1px solid #ccc';
+    divModulo.style.padding = '15px';
+    divModulo.style.borderRadius = '8px';
+    divModulo.style.marginBottom = '15px';
+    divModulo.style.backgroundColor = '#f9f9f9';
+
+    divModulo.innerHTML = `
+      <h4 style="margin-top:0;">Modulo ${contadorModulo}</h4>
+      
+      <div class="form-group">
+        <label>Título del Módulo:</label>
+        <input type="text" class="form-control titulo-modulo" value="${titulo}" placeholder="Ej. Introducción al curso" required>
+      </div>
+
+      <h5 style="margin-bottom:5px;">Contenido del Módulo</h5>
+      
+      <div class="form-group">
+        <label>Tipo de Contenido:</label>
+        <select class="form-control tipo-contenido">
+          <option value="text" ${tipo === 'text' ? 'selected' : ''}>Texto</option>
+          <option value="url" ${tipo === 'url' ? 'selected' : ''}>Enlace / URL</option>
+          <option value="file" ${tipo === 'file' ? 'selected' : ''}>Archivo Descargable</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Título del Contenido:</label>
+        <input type="text" class="form-control titulo-contenido" value="${tituloContenido}" placeholder="Ej. Lección 1" required>
+      </div>
+
+      <div class="form-group">
+        <label>Detalle / URL / Archivo:</label>
+        <input type="text" class="form-control detalle-contenido" value="${detalleContenido}" placeholder="Escribe el texto, pega la URL o nombre del archivo">
+      </div>
+    `;
+
+    contenedorModulos.appendChild(divModulo);
+  }
+
+  //  boton "agregar modulo"
+  if (btnAgregarModulo && contenedorModulos) {
+    btnAgregarModulo.addEventListener('click', () => {
+      agregarBloqueModulo();
+    });
+  }
+
+  // verificar si viene un ID en la URL 
   if (crearCursoForm) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cursoId = urlParams.get('id');
+
+    if (cursoId) {
+      // Cambiar encabezado si existe
+      const tituloPagina = document.querySelector('.card-header h2');
+      if (tituloPagina) tituloPagina.textContent = 'EDITAR CURSO';
+
+      const botonGuardar = crearCursoForm.querySelector('.btn-guardar');
+      if (botonGuardar) botonGuardar.textContent = 'Actualizar Curso';
+
+      // Cargar datos del curso a editar desde la API
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        fetch(`http://127.0.0.1:8000/api/v1/courses/${cursoId}`, {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          const curso = data.course || data;
+          if (curso) {
+            document.getElementById('titulo').value = curso.title || '';
+            document.getElementById('categoria').value = curso.category_id || '';
+            document.getElementById('nivel').value = curso.level || '';
+            document.getElementById('descripcion').value = curso.description || '';
+
+            // Cargar los modulos existentes
+            if (curso.modules && curso.modules.length > 0) {
+              contenedorModulos.innerHTML = '';
+              curso.modules.forEach(mod => {
+                const primerContenido = (mod.contents && mod.contents.length > 0) ? mod.contents[0] : {};
+                agregarBloqueModulo(
+                  mod.title || '',
+                  primerContenido.type || 'text',
+                  primerContenido.title || '',
+                  primerContenido.content || ''
+                );
+              });
+            }
+          }
+        })
+        .catch(err => console.error('Error al cargar datos del curso:', err));
+      }
+    }
+
+    // guardar crear o actualizar)
     crearCursoForm.addEventListener('submit', async (e) => {
-      e.preventDefault(); // Evita que la pagina se recargue
+      e.preventDefault();
 
-      //Obtenemos el token de autenticación
-      const token = localStorage.getItem('authToken'); 
-
+      const token = localStorage.getItem('authToken');
       if (!token) {
-        alert('Sesión no válida o expirada. Por favor, inicia sesión.');
+        alert('Sesion no valida.');
         window.location.href = 'login.html';
         return;
       }
 
-      // Capturamos los valores ingresados en el formulario
-      const title = document.getElementById('titulo').value.trim();
-      const category_id = document.getElementById('categoria').value;
-      const level = document.getElementById('nivel').value;
-      const description = document.getElementById('descripcion').value.trim();
+      const bloques = document.querySelectorAll('.bloque-modulo');
+      const modulos = [];
 
-      // bjeto JSON que requiere la API
+      bloques.forEach(bloque => {
+        const tituloMod = bloque.querySelector('.titulo-modulo').value;
+        const tipoCont = bloque.querySelector('.tipo-contenido').value;
+        const tituloCont = bloque.querySelector('.titulo-contenido').value;
+        const detalleCont = bloque.querySelector('.detalle-contenido').value;
+
+        modulos.push({
+          title: tituloMod,
+          contents: [
+            {
+              type: tipoCont,
+              title: tituloCont,
+              content: detalleCont
+            }
+          ]
+        });
+      });
+
       const datosCurso = {
-        title: title,
-        category_id: parseInt(category_id), // category_id PARA QUE SEA UN ENTERO
-        level: level,
-        description: description
+        title: document.getElementById('titulo').value.trim(),
+        category_id: parseInt(document.getElementById('categoria').value),
+        level: document.getElementById('nivel').value,
+        description: document.getElementById('descripcion').value.trim(),
+        modules: modulos
       };
 
+      const esEdicion = Boolean(cursoId);
+      const url = esEdicion 
+        ? `http://127.0.0.1:8000/api/v1/courses/${cursoId}`
+        : 'http://127.0.0.1:8000/api/v1/courses';
+      const metodo = esEdicion ? 'PATCH' : 'POST';
+
       try {
-        // Hacemos la peticion POST a la API
-        const response = await fetch('http://127.0.0.1:8000/api/v1/courses', {
-          method: 'POST',
+        const response = await fetch(url, {
+          method: metodo,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -209,26 +331,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const data = await response.json();
 
-        //  respuesta
         if (response.ok) {
-          alert('¡Curso creado exitosamente!');
+          alert(esEdicion ? '¡Curso actualizado exitosamente!' : '¡Curso y modulos creados exitosamente!');
           window.location.href = 'misCursos.html';
         } else {
-          // Si la API devuelve errores de validacion (por ejemplo, error 422)
           if (data.errors) {
             const mensajes = Object.values(data.errors).flat().join('\n');
-            alert(`Error de validación:\n${mensajes}`);
+            alert(`Error de validacion:\n${mensajes}`);
           } else {
-            alert(data.message || 'No se pudo crear el curso.');
+            alert(data.message || 'No se pudo guardar el curso.');
           }
-       }
+        }
       } catch (error) {
         console.error('Error al conectar con la API:', error);
-        alert('Ocurrio error al intentar conectar con el servidor.');
+        alert('Ocurrio un error al intentar conectar con el servidor.');
       }
     });
   }
-
 
   // ARCHIVO MIS CURSOS (misCursos.html)
   const gridCursos = document.getElementById("grid-cursos");
@@ -248,21 +367,79 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await respuesta.json();
 
         if (respuesta.ok) {
-          const cursos = data.courses || data;
+          const cursosBasicos = data.courses || data;
 
+const cursos = await Promise.all(
+  cursosBasicos.map(async (curso) => {
+    try {
+      const resDetalle = await fetch(`http://127.0.0.1:8000/api/v1/courses/${curso.id}`, {
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token
+          }
+        });
+      if (resDetalle.ok) {
+        const dataDetalle = await resDetalle.json();
+        return dataDetalle.course || curso;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return curso;
+  })
+);
           if (Array.isArray(cursos) && cursos.length > 0) {
             estadoVacio.classList.add("d-none");
             gridCursos.classList.remove("d-none");
 
-            gridCursos.innerHTML = cursos.map(curso => `
-              <div class="card-curso">
-                <img src="${curso.cover_url || 'https://via.placeholder.com/300x169?text=Sin+Portada'}" style="width:100%; aspect-ratio:16/9; object-fit:cover;">
-                <h3>${curso.title}</h3>
-                <p>${curso.description}</p>
-                <span class="badge">${curso.level}</span>
-                <span class="badge-estado">${curso.status || 'draft'}</span>
+           gridCursos.innerHTML = `
+              <div style="width: 100%; text-align: right; margin-bottom: 20px;">
+                <a href="crearCurso.html" style="background-color: #28a745; color: white; padding: 10px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">
+                  + Crear Nuevo Curso
+                </a>
               </div>
-            `).join('');
+            ` + cursos.map(curso => {
+              // Construimos el HTML de los módulos si existen
+              const modulos = curso.modules || curso.modulos || [];
+              const htmlModulos = (modulos.length > 0)
+                ? modulos.map(mod => {
+                    const contenidos = mod.contents || mod.contenidos || [];
+                    return `
+                      <div style="margin-top: 10px; padding: 8px; background: #f0f0f0; border-radius: 4px; text-align: left;">
+                        <strong>Módulo: ${mod.title || mod.titulo}</strong>
+                        ${
+                          (contenidos.length > 0)
+                            ? contenidos.map(c => `
+                            <p style="margin: 4px 0 0 10px; font-size: 0.85rem;">• [${c.type || c.tipo}] ${c.title || c.titulo}: ${c.content || c.detalle}</p>
+                            `).join('')
+                            : '<p style="margin-left: 10px; font-size: 0.8rem; color: #666;">Sin contenido</p>'
+                        }
+                      </div>
+                    `;
+                  }).join('')
+                : '<p style="color: #777; font-size: 0.85rem; margin-top:10px;">Este curso no tiene módulos creados.</p>';
+              // se crean tarjeta con sus modulos y botones de accion
+              return `
+                <div class="card-curso" style="position: relative;">
+                  <img src="${curso.cover_url || 'https://via.placeholder.com/300x169?text=Sin+Portada'}" alt="Portada">
+                  <h3>${curso.title}</h3>
+                  <p>${curso.description}</p>
+                  <span class="badge">${curso.level}</span>
+                  <span class="badge-estado">${curso.status || 'draft'}</span>
+                  
+                  <div class="seccion-modulos" style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
+                    <h4 style="margin: 0; font-size: 0.95rem;">Módulos del curso:</h4>
+                    ${htmlModulos}
+                  </div>
+
+                  <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="crearCurso.html?id=${curso.id}" style="background-color: #007bff; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.85rem;">
+                      Editar
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('');
           } else {
             estadoVacio.classList.remove("d-none");
             gridCursos.classList.add("d-none");
@@ -275,4 +452,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     obtenerCursos();
   }
-});
+
+  const gridCursosInicio = document.getElementById("grid-cursos-inicio");
+
+  if (gridCursosInicio) {
+    async function cargarCursosInicio() {
+      try {
+        const respuesta = await fetch("http://127.0.0.1:8000/api/v1/courses", {
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        const data = await respuesta.json();
+
+        if (respuesta.ok) {
+          const cursos = Array.isArray(data) ? data : (data.courses || data.data || []);
+
+          if (cursos.length > 0) {
+            gridCursosInicio.innerHTML = cursos.map(curso => `
+              <div class="card-curso">
+                <img src="${curso.cover_url || 'https://via.placeholder.com/300x169?text=Curso'}" alt="${curso.title}" style="width:100%; aspect-ratio:16/9; object-fit:cover;">
+                <div style="padding: 15px;">
+                  <h3>${curso.title}</h3>
+                  <p>${curso.description || 'Sin descripción'}</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                    <span class="badge">${curso.level || 'Básico'}</span>
+                    <small>Instructor: ${curso.instructor?.name || 'Juan'}</small>
+                  </div>
+                </div>
+              </div>
+            `).join('');
+          } else {
+            gridCursosInicio.innerHTML = "<p>No hay cursos publicados disponibles en este momento.</p>";
+          }
+        } else {
+          gridCursosInicio.innerHTML = "<p>Error al obtener la lista de cursos.</p>";
+        }
+      } catch (error) {
+        console.error("Error al cargar cursos en inicio:", error);
+        gridCursosInicio.innerHTML = "<p>No se pudo conectar con el servidor.</p>";
+      }
+    }
+
+    cargarCursosInicio();
+  }
+
+}); 
+
