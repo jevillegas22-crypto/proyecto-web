@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UDEMY - Registro</title>
+  <!-- LINK PARA USAR TIPOGRAFIA MONTSERRAT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- CONEXION CON ARCHIVO DE CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ENCABEZADO -->
+  <header class="main-header">
+    <h1>C O U R S E R A U D E M Y</h1>
+  </header>
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>PLATAFORMA UDEMY</h2>
+        <p class="subtitle">SISTEMA DE CURSOS EN LÍNEA</p>
+        <h3>CREAR CUENTA</h3>
+      </div>
+      <!-- FORMULARIO DE JS -->
+      <form id="registroForm">
+        <div class="form-group">
+          <label for="nombre">Nombre completo:</label>
+          <input type="text" id="nombre" class="form-control" placeholder="Ingresa tu nombre completo..." required>
+        </div> 
+        <div class="form-group">
+          <label for="correo">Correo electrónico:</label>
+          <input type="email" id="correo" class="form-control" placeholder="Ingresa tu correo ejemplo@gmail.com..." required>
+        </div> 
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" class="form-control" placeholder="***********" required>
+        </div> 
+        <div class="form-group">
+          <!-- CONFIRMACION DE CONTRASEÑA -->
+          <label for="confirmPassword">Confirma tu Contraseña:</label>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="***********" required>
+        </div>
+          <!-- MENSAJE DE ERROR -->
+    <div id="mensajeError" style="color: red; margin-top: 10px; font-size: 14px; text-align: center;">
+    </div>
+        <button type="submit" class="btn-submit">Registrar</button>
+      </form>
+      <p class="card-footer">
+        ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
+      </p>
+    </div>
+  </main>
+  <!-- CONEXION A JAVA SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>

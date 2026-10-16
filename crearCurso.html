@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDEMY - Crear Cursos</title>
+    <!-- LINK PARA USAR TIPOGRAFIA MONTSERRAT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- CONEXION CON ARCHIVO DE CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="main-header-pantallaPrincipal">
+        <h1>INSTRUCTOR - C O U R S E R A U D E M Y</h1>
+        <nav class="nav-hader">
+            <a href="misCursos.html">Mis Cursos</a>
+            <a href="pantallaPrincipalInstructor.html">Volver al Inicio</a>
+        </nav>
+    </header>
+    <main class="container-crearCurso">
+        <div class="card-crearCurso">
+            <div class="card-header">
+                <h2>CREA TUS CURSOS</h2>
+                <p class="subtitle">INGRESA LOS DATOS DE TU NUEVO CURSO</p>
+            </div>
+            <!-- FORMULARIO -->
+            <form id="crearCursoForm">
+                <div class="form-crear-curso">
+                    <label for="titulo">Titulo del curso:</label>
+                    <input type="text" id="titulo" name="title" class="form-control" placeholder="Ingresa el titulo del curso..." maxlength="150" required>
+                </div>
+                <!-- CATEGORÍA -->
+                <div class="form-group">
+
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" name="category_id" class="form-control" required>
+                        <option value="" disabled selected>Selecciona una categoria...</option>
+                        <option value="1">Desarrollo web</option>
+                        <option value="2">Desarrollo movil</option>
+                        <option value="3">Bases de datos</option>
+                        <option value="4">Ciencia de datos</option>
+                        <option value="5">Diseño</option>
+                        <option value="6">Redes y seguridad</option>
+                        <option value="7">Negocios y marketing</option>
+                        <option value="8">Idiomas</option>
+                    </select>
+                </div>
+                <!-- NIVEL DEL CURSO -->
+                <div class="form-group">
+                    <label for="nivel">Nivel del curso:</label>
+                    <select id="nivel" name="level" class="form-control" required>
+                        <option value="" disabled selected>Selecciona un nivel...</option>
+                        <option value="beginner">Principiante</option>
+                        <option value="intermediate">Intermedio</option>
+                        <option value="advanced">Avanzado</option>
+                    </select>
+                </div>
+                <!-- INGRESAR DESCRIPCION -->
+                <div class="form-group">
+                    <label for="descripcion">Descripcion del curso:</label>
+                    <textarea id="descripcion" name="description" class="form-control" rows="4" minlength="100"
+                        maxlength="5000" placeholder="Describe tu curso (minimo 100 caracteres)" required></textarea>
+                </div>
+                <!-- BOTONES -->
+                <div class="form-group">
+                    <button type="submit" class="btn-guardar">+ Guardar Curso</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script defer src="script.js"></script>
+</body>
+</html>

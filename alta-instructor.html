@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UDEMY - Alta de Instructor</title>
+  <!-- LINK PARA USAR TIPOGRAFIA MONTSERRAT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- CONEXION CON ARCHIVO DE CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ENCABEZADO -->
+  <header class="main-header">
+    <h1>C O U R S E R A U D E M Y</h1>
+  </header>
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2>PLATAFORMA UDEMY</h2>
+        <p class="subtitle">SISTEMA DE CURSOS EN LÍNEA</p>
+        <h3>ALTA DE INSTRUCTOR</h3>
+      </div>
+      <!-- FORMULARIO DE JS -->
+      <form id="altaInstructorForm">
+        <div class="form-group">
+          <label for="fotografia">Fotografia de perfil (Opcional):</label>
+          <!-- ACCEPT= SOLO SE ACEPTA IMAGENES -->
+          <input type="file" id="fotografia" class="form-control" accept="image/png, image/jpeg, image/webp">
+        </div> 
+        <div class="form-group">
+          <label for="headline">Titular:</label>
+          <input type="text" id="headline" class="form-control" maxlength="150" placeholder="Ej: Desarrollador Backend o Instructor" required>
+        </div> 
+        <div class="form-group">
+          <label for="specialty">Especialidad:</label>
+          <input type="text" id="specialty" class="form-control" maxlength="100" placeholder="Ej: Desarrollador Web, Diseñador, etc..." required>
+        </div> 
+        <div class="form-group">
+          <label for="biography">Biografia (minimo 50 caracteres):</label>
+          <!-- rows="5" DEFINE LA ALTURA DEL CUADRO DE TEXTO -->
+          <textarea id="biography" class="form-control" rows="5" minlength="50" maxlength="2000"placeholder="Hablanos un poco sobre tu experiencia profesional..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Registrar Instructor</button>
+      </form>
+      <p class="card-footer">
+        Volver al <a href="pantallaPrincipal.html">Inicio</a>
+      </p>
+    </div>
+  </main>
+  <!-- CONEXION A JAVA SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>

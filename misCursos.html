@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDEMY - Mis Cursos</title>
+    <!-- LINK PARA USAR TIPOGRAFIA MONTSERRAT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- CONEXION CON ARCHIVO DE CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="main-header-pantallaPrincipal">
+        <h1>INSTRUCTOR - C O U R S E R A U D E M Y</h1>
+        <nav class="nav-hader">
+            <a href="pantallaPrincipalInstructor.html">Volver al Inicio</a>
+        </nav>
+    </header>
+    <main class="container-dashboard">
+        <div class="seccion-titulo">
+            <h2>Mis Cursos</h2>
+        </div>
+        <!-- ESTADO VACIO -->
+        <div id="estado-vacio" class="estado-vacio">
+            <img src="https://via.placeholder.com/150?text=Sin+Cursos" alt="Sin cursos">
+            <h3>Aun no has creado ningun curso</h3>
+            <p>Crea tu primer curso.</p>
+            <a href="crearCurso.html" class="btn-crear-primero">+ Crear mi primer curso</a>
+        </div>
+        <div id="grid-cursos" class="grid-cursos d-none"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

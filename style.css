@@ -1,0 +1,378 @@
+/* CONFIGURACION Y TIPOGRAFIA GENERAL */
+* {
+  /* CENTRADO PADDING EN LOS ELEMNTOS*/
+  box-sizing: border-box; 
+} 
+html {
+  font-family: "Montserrat", sans-serif;
+} 
+body {
+  margin: 0;
+  /* COLOR DEL FONDO */
+  background-color: #ffffff; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* ENCABEZADO */
+.main-header {
+  background-color: #205392;
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  box-shadow: 0 5px 8px rgba(19, 19, 19, 0.3);
+}
+
+.main-header h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* CONTENEDOR CENTRAL */
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background-color: #efefefdb;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+  padding: 2rem;
+  /*EFECTO DE SOMBREADO*/
+  box-shadow: 0 10px 200px #205392;
+}
+
+/* TITULOS EN TARJETA */
+.card-header h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  color: #003564;
+  margin: 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  text-align: center;
+  color: #2e9010;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0.2rem 0 1.2rem 0;
+}
+
+.card-header h3 {
+  text-align: center;
+  color: #003564;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ELEMENTOS DE FORMULARIO */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #222222;
+  margin-bottom: 0.4rem;
+}
+
+/* BORDE DE CELDAS */
+.form-control {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #003564;
+  box-shadow: 0 0 5px #2e9010;
+}
+
+/* BOTON DE ENVIO  */
+.btn-submit {
+  background-color: #003564;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+/*EFECTO DE BOTON AL PASAR EL MOUSE*/
+.btn-submit:hover {
+  background-color: #2e9010;
+}
+
+/* PIE DE TARJETA */
+.card-footer {
+  text-align: center;
+  color: #333333;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+}
+
+.card-footer a {
+  color: #2e9010;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ENCABEZADO PANTALLA PRINCIPAL */
+.main-header-pantallaPrincipal {
+  background-color: #205392;
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  box-shadow: 0 5px 8px rgba(19, 19, 19, 0.3);
+}
+
+.main-header-pantallaPrincipal h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.main-header-pantallaPrincipal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header-pantallaPrincipal nav a{
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: 1rem;
+}
+
+.main-header-pantallaPrincipal nav a:hover {
+ box-shadow: 0 1px 0px #0cd32d;
+}
+/* ENCABEZADO PANTALLA PRINCIPAL INSTRUCTOR */
+.main-header-pantallaPrincipalInstructor {
+  background-color: #205392;
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  box-shadow: 0 5px 8px rgba(19, 19, 19, 0.3);
+}
+
+.main-header-pantallaPrincipalInstructor h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.main-header-pantallaPrincipalInstructor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header-pantallaPrincipalInstructor nav a{
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: 1rem;
+}
+
+/*TARJETA MIS CURSOS*/
+.main-header-pantallaPrincipalInstructor nav a:hover {
+ box-shadow: 0 1px 0px #0cd32d;
+}
+main.container-dashboard {
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 100px auto;
+  padding: 0 20px;
+}
+.seccion-titulo {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.seccion-titulo h2 {
+  font-size: 30px;
+  color: #205392;
+  text-align: center;
+}
+/* TARJETA VACIA */
+.estado-vacio {
+  background-color: #efefef;
+  width: 100%;
+  border-radius: 1rem;
+  /*EFECTO DE SOMBREADO*/
+  box-shadow: 0 10px 200px #205392;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 20px;
+  border: 2px dashed #b8b8b8;
+  box-sizing: border-box;
+}
+
+.estado-vacio img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 50px;
+  opacity: 0.8;
+}
+
+.estado-vacio h3 {
+  font-size: 22px;
+  color: #205392;
+  margin-bottom: 10px;
+}
+
+.estado-vacio p {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+
+.btn-crear-primero {
+  display: inline-block;
+  background-color: #205392;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-crear-primero:hover {
+  background-color: #2e9010;
+}
+
+.d-none {
+  display: none;
+}
+
+/*TARJETA CREAR CURSOS*/
+
+.container-crearCurso {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.card-crearCurso {
+  background-color: #efefefdb;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+  padding: 2rem;
+  /*EFECTO DE SOMBREADO*/
+  box-shadow: 0 10px 200px #205392;
+}
+
+/* TITULOS EN TARJETA */
+.card-header h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  color: #003564;
+  margin: 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  text-align: center;
+  color: #2e9010;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0.2rem 0 1.2rem 0;
+}
+
+.card-header h3 {
+  text-align: center;
+  color: #003564;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ELEMENTOS DE FORMULARIO */
+.form-crear-curso {
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #222222;
+  margin-bottom: 0.4rem;
+}
+
+/* BORDE DE CELDAS */
+.form-control {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #003564;
+  box-shadow: 0 0 5px #2e9010;
+}
+
+/* BOTON DE ENVIO  */
+.btn-guardar {
+  background-color: #003564;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+/*EFECTO DE BOTON AL PASAR EL MOUSE*/
+.btn-guardar:hover {
+  background-color: #2e9010;
+}
